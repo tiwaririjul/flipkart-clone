@@ -9,6 +9,9 @@ import { useSelector } from "react-redux";
 
 import Profile from "./Profile";
 
+import LoginDialog from "../login/LoginDialog";
+import { DataContext } from "../../context/DataProvider";
+
 const Container = styled(Box)(({ theme }) => ({
   display: "flex",
   [theme.breakpoints.down("sm")]: {
@@ -54,9 +57,30 @@ const LoginButton = styled(Button)(({ theme }) => ({
 }));
 
 const CustomButtons = () => {
+  const [open, setOpen] = useState(false);
+  // const { account, setAccount } = useContext(LoginContext);
+
+  // const cartDetails = useSelector((state) => state.cart);
+  // const { cartItems } = cartDetails;
+
+  const { account } = useContext(DataContext);
+
+  console.log(account);
+
+  const openDialog = () => {
+    setOpen(true);
+  };
+
   return (
     <Wrapper>
-      <LoginButton variant="contained">Login</LoginButton>
+      {account ? (
+        <Typography>{account}</Typography>
+      ) : (
+        <LoginButton variant="contained" onClick={() => openDialog()}>
+          Login
+        </LoginButton>
+      )}
+
       <Typography style={{ marginTop: 3, width: 135 }}>
         Become a Seller
       </Typography>
@@ -66,6 +90,7 @@ const CustomButtons = () => {
         <ShoppingCart />
         <Typography>cart</Typography>
       </Container>
+      <LoginDialog open={open} setOpen={setOpen} />
     </Wrapper>
   );
 };
