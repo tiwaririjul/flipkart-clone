@@ -37,7 +37,7 @@ const Profile = ({ account, setAccount }) => {
         <MenuItem
           onClick={() => {
             handleClose();
-            logout();
+            logout(); 
           }}
         >
           <PowerSettingsNew fontSize="small" color="primary" />
